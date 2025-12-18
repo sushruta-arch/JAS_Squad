@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snap Eats | Landing Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="nav-logo">
+          <h2 class="logo-text">Snap Eats</h2>
+        </a>
+        <ul class="nav-menu">
+          <button id="menu-close-button" class="fas fa-times"></button>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#testimonials" class="nav-link">Testimonials</a>
+          </li>
+          <li class="nav-item">
+            <a href="#gallery" class="nav-link">Gallery</a>
+          </li>
+        </ul>
+        <button id="menu-open-button" class="fas fa-bars"></button>
+      </nav>
+    </header>
+    <main>
+      <!-- Hero section -->
+      <section class="hero-section">
+        <div class="section-content">
+          <div class="hero-details">
+            <h2 class="title">Are You Hungry?</h2>
+            <h3 class="subtitle">Hey There! I'm Your Personal Chef</h3>
+            <p class="description">Craving for something delicious?<br>Tell us what's in your fridge and we will whip up some magic!</p>
+            <div class="buttons">
+              <a href="../fridge/fridge.html" class="button order-now" style="color: wheat;">Surprise Me!</a>
+            </div>
+          </div>
+          <div class="hero-image-wrapper">
+            <img src="landing/images/girl.jpg" alt="Coffee" class="hero-image" />
+          </div>
+        </div>
+      </section>
+
+      <!-- About section -->
+      <section class="about-section" id="about">
+        <div class="section-content">
+          <div class="about-details">
+            <h2 class="section-title">About Snap Eats</h2>
+            <p class="text">"Snap Eats: Your midnight kitchen savior. No food waste, no takeout, just delicious food."</p>
+            <p class="text">Snap Eats is a revolutionary cooking companion that empowers home cooks to create delicious, healthy meals using ingredients they already have on hand. Say goodbye to food waste and hello to culinary creativity! With our user-friendly platform, simply input the ingredients you have, and we'll serve up a curated selection of recipes tailored to your taste, dietary needs, and cooking style. From quick weeknight dinners to budget-friendly feasts, our recipes are designed to inspire and delight. Join our community of foodies and start cooking smarter, not harder. Whether you're a seasoned chef or a kitchen newbie, Snap Eats is your secret ingredient to making mealtime magic happen!</p>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Testimonials section -->
+      <section class="testimonials-section" id="testimonials">
+        <h2 class="section-title">Testimonials</h2>
+        <div class="section-content">
+          <div class="slider-container swiper">
+            <div class="slider-wrapper">
+              <ul class="testimonials-list swiper-wrapper">
+                <li class="testimonial swiper-slide">
+                  <img src="landing/images/joyeeta.jpg" alt="User" class="user-image" />
+                  <h3 class="name">Joyeeta Das</h3>
+                  <i class="feedback">"Helped me so through the tough times"</i>
+                </li>
+                <li class="testimonial swiper-slide">
+                  <img src="landing/images/bikram.jpg" alt="User" class="user-image" />
+                  <h3 class="name">Bikram Das</h3>
+                  <i class="feedback">"Healthy and Budget Friendly Recipes"</i>
+                </li>
+                <li class="testimonial swiper-slide">
+                  <img src="landing/images/arnab.jpg" alt="User" class="user-image" />
+                  <h3 class="name">Arnab Mukherjee</h3>
+                  <i class="feedback">"Recipes were really easy to follow"</i>
+                </li>
+              </ul>
+              <div class="swiper-pagination"></div>
+              <div class="swiper-slide-button swiper-button-prev"></div>
+              <div class="swiper-slide-button swiper-button-next"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery section -->
+      <section class="gallery-section" id="gallery">
+        <h2 class="section-title">Gallery</h2>
+        <div class="section-content">
+          <ul class="gallery-list">
+            <li class="gallery-item">
+              <img src="landing/images/pastaish.jpg" alt="Gallery Image" class="gallery-image" />
+            </li>
+            <li class="gallery-item">
+              <img src="landing/images/kfc.jpg" alt="Gallery Image" class="gallery-image" />
+            </li>
+            <li class="gallery-item">
+              <img src="landing/images/desert.jpg" alt="Gallery Image" class="gallery-image" />
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Contact section -->
+      <section class="contact-section" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="section-content">
+          <ul class="contact-info-list">
+            <li class="contact-info">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <p>University Institute Of Technology, The University Of Burdwan</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-envelope"></i>
+              <p>sushrutadas0@gmail.com</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-envelope"></i>
+              <p>coder.jiya@gmail.com</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-envelope"></i>
+              <p>bikramtps@gmail.com</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-solid fa-globe"></i>
+              <p>https://jass.qzz.io</p>
+            </li>
+          </ul>
+          <form action="#" class="contact-form">
+            <input type="text" placeholder="Your name" class="form-input" required />
+            <input type="email" placeholder="Your email" class="form-input" required />
+            <textarea placeholder="Your message" class="form-input" required></textarea>
+            <button type="submit" class="button submit-button">Submit</button>
+          </form>
+        </div>
+      </section>
+    <!-- Linking Swiper script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Linking custom script -->
+    <script src="script.js"></script>
+  </body>
+</html>

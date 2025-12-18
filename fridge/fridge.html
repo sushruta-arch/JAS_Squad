@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Fridge</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+/* (Same sleek styles, trimmed for clarity) */
+
+body {
+  background-image: url("../landing/images/bggimg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.app {
+  width: 1000px;
+  height: 90vh;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.15);
+  overflow: hidden;
+}
+
+.header {
+  padding: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.content {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+input, button {
+  border-radius: 999px;
+  border: none;
+  padding: 12px 18px;
+}
+
+input {
+  width: 70%;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+button {
+  background: #22c55e;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #020617;
+  padding: 24px;
+  border-radius: 18px;
+  width: 420px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.chip {
+  background: #fde047;
+  color: black;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}
+
+</style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+/* =========================
+   🔑 API CONFIG (HERE!)
+   ========================= */
+const API_KEY = "458e82b08d9c431ebff381a8dcbac460";
+
+/* =========================
+   ⚛️ REACT APP
+   ========================= */
+const { useState } = React;
+
+function App() {
+  const [ingredients, setIngredients] = useState([]);
+  const [input, setInput] = useState("");
+  const [recipes, setRecipes] = useState([]);
+  const [activeRecipe, setActiveRecipe] = useState(null);
+  const [steps, setSteps] = useState([]);
+
+  /* 🍳 Fetch recipes */
+  const findRecipes = async () => {
+    if (!ingredients.length) return;
+
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.join(",")}&number=6&apiKey=${API_KEY}`
+    );
+    const data = await res.json();
+    setRecipes(data);
+  };
+
+  /* 📖 Fetch instructions */
+  const openRecipe = async (recipe) => {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/${recipe.id}/analyzedInstructions?apiKey=${API_KEY}`
+    );
+    const data = await res.json();
+    setSteps(data[0]?.steps || []);
+    setActiveRecipe(recipe);
+  };
+
+  return (
+    <div className="app">
+      <div className="header">
+        <h2>🥗 Smart Fridge</h2>
+        <p>Cook with what you have</p>
+      </div>
+
+      <div className="content">
+        <input
+           placeholder="Add ingredient"
+           value={input}
+           onChange={e => setInput(e.target.value)}
+           onKeyDown={e => {
+              if (e.key === "Enter" && input.trim()) {
+                 setIngredients([...ingredients, input.trim()]);
+                 setInput("");
+              }
+            }}
+          />
+        <button onClick={() => {
+          if (!input.trim()) return;
+          setIngredients([...ingredients, input.trim()]);
+          setInput("");
+        }}>
+         Add
+       </button>
+
+        <div className="chips">
+          {ingredients.map((ing, idx) => (
+             <div
+               key={idx}
+               className="chip"
+               onClick={() =>
+                 setIngredients(ingredients.filter((_, i) => i !== idx))
+               }
+             >
+               {ing}
+             </div>
+          ))}
+        </div>
+
+        <button style={{marginTop:"10px"}} onClick={findRecipes}>
+          Find Recipes
+        </button>
+
+        <div className="grid">
+          {recipes.map(r => (
+            <div className="card" key={r.id} onClick={() => openRecipe(r)}>
+              <img src={r.image} />
+              <div style={{padding:"12px"}}>{r.title}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {activeRecipe && (
+        <div className="modal" onClick={() => setActiveRecipe(null)}>
+          <div className="modal-box" onClick={e => e.stopPropagation()}>
+            <h3>{activeRecipe.title}</h3>
+            <ol>
+              {steps.map(s => <li key={s.number}>{s.step}</li>)}
+            </ol>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+</body>
+</html>
